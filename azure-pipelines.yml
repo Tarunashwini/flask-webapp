@@ -26,15 +26,15 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(Build.BuildId)
-          
+    
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(Build.SourcesDirectory)/kube-manifests'
-        Contents: '**/*'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/kube-manifests'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
         OverWrite: true
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/kube-manifests'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'kube-manifests'
         publishLocation: 'Container'
