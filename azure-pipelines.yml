@@ -26,7 +26,6 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(Build.BuildId)
-    
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests'
