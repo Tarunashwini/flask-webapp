@@ -17,7 +17,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    
+    - script: |
+        echo "Listing the contents of the working directory:"
+        ls -al $(System.DefaultWorkingDirectory)
+        echo "Listing the contents of the kube-manifests directory:"
+        ls -al $(System.DefaultWorkingDirectory)/kube-manifests
+      displayName: 'List directory contents'
+
     - task: Docker@2
       inputs:
         containerRegistry: 'Tarun_Docker'
@@ -26,12 +32,14 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(Build.BuildId)
+
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         OverWrite: true
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
