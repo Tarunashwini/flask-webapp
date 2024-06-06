@@ -26,8 +26,8 @@ stages:
 
     - task: Docker@2
       inputs:
-        containerRegistry: 'Tarun_Docker'
-        repository: 'tarunashwini/flask-webapp'
+        containerRegistry: 'Docker_connector'
+        repository: 'tarunr.azurecr.io/flask-webapp'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: |
